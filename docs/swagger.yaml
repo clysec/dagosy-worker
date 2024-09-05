@@ -1,0 +1,1018 @@
+basePath: /
+definitions:
+  config.UpdateRemoteOpt:
+    properties:
+      all:
+        description: If set then ask all the questions, not just the post config questions
+        type: boolean
+      continue:
+        description: If set then supply state and result parameters to continue the
+          process
+        type: boolean
+      edit:
+        description: If set then edit existing values
+        type: boolean
+      noObscure:
+        description: Treat all passwords as obscured
+        type: boolean
+      nonInteractive:
+        description: Don't interact with the user - return questions
+        type: boolean
+      obscure:
+        description: Treat all passwords as plain that need obscuring
+        type: boolean
+      result:
+        description: Result to return - used with Continue
+        type: string
+      state:
+        description: State to restart with - used with Continue
+        type: string
+    type: object
+  dns.Answer:
+    properties:
+      TTL:
+        type: integer
+      data:
+        type: string
+      name:
+        type: string
+      type:
+        type: integer
+    type: object
+  dns.Question:
+    properties:
+      name:
+        type: string
+      type:
+        type: integer
+    type: object
+  dns.Response:
+    properties:
+      AD:
+        type: boolean
+      Answer:
+        items:
+          $ref: '#/definitions/dns.Answer'
+        type: array
+      CD:
+        type: boolean
+      Question:
+        items:
+          $ref: '#/definitions/dns.Question'
+        type: array
+      RA:
+        type: boolean
+      RD:
+        type: boolean
+      Status:
+        type: integer
+      TC:
+        type: boolean
+      provider:
+        type: string
+    type: object
+  files.CheckEqualRequest:
+    properties:
+      destinationPath:
+        type: string
+      destinationRemote:
+        $ref: '#/definitions/files.RemoteConfiguration'
+      sourcePath:
+        type: string
+      sourceRemote:
+        $ref: '#/definitions/files.RemoteConfiguration'
+    type: object
+  files.CopyFileRequest:
+    properties:
+      destinationPath:
+        type: string
+      destinationRemote:
+        $ref: '#/definitions/files.RemoteConfiguration'
+      sourcePath:
+        type: string
+      sourceRemote:
+        $ref: '#/definitions/files.RemoteConfiguration'
+    type: object
+  files.CopyURLRequest:
+    properties:
+      autoFilename:
+        type: boolean
+      dstFilenameFromHeader:
+        type: boolean
+      noClobber:
+        type: boolean
+      path:
+        type: string
+      remote:
+        $ref: '#/definitions/files.RemoteConfiguration'
+      url:
+        type: string
+    type: object
+  files.DeleteFileRequest:
+    properties:
+      path:
+        type: string
+      remote:
+        $ref: '#/definitions/files.RemoteConfiguration'
+    type: object
+  files.ListFilesRequest:
+    properties:
+      options:
+        $ref: '#/definitions/operations.ListJSONOpt'
+      path:
+        type: string
+      recurse:
+        type: boolean
+      remote:
+        $ref: '#/definitions/files.RemoteConfiguration'
+    type: object
+  files.ListFilesResponse:
+    properties:
+      files:
+        items:
+          $ref: '#/definitions/operations.ListJSONItem'
+        type: array
+    type: object
+  files.MoveBackupDirRequest:
+    properties:
+      destinationPath:
+        type: string
+      destinationRemote:
+        $ref: '#/definitions/files.RemoteConfiguration'
+      sourcePath:
+        type: string
+      sourceRemote:
+        $ref: '#/definitions/files.RemoteConfiguration'
+    type: object
+  files.MoveFileRequest:
+    properties:
+      destinationPath:
+        type: string
+      destinationRemote:
+        $ref: '#/definitions/files.RemoteConfiguration'
+      sourcePath:
+        type: string
+      sourceRemote:
+        $ref: '#/definitions/files.RemoteConfiguration'
+    type: object
+  files.ReadFileRequest:
+    properties:
+      path:
+        type: string
+      remote:
+        $ref: '#/definitions/files.RemoteConfiguration'
+    type: object
+  files.ReadFileResponse:
+    properties:
+      files:
+        items:
+          $ref: '#/definitions/files.ReadFileResponseItem'
+        type: array
+    type: object
+  files.ReadFileResponseItem:
+    properties:
+      name:
+        type: string
+      size:
+        type: integer
+    type: object
+  files.RemoteConfiguration:
+    properties:
+      name:
+        type: string
+      options:
+        $ref: '#/definitions/config.UpdateRemoteOpt'
+      parameters:
+        additionalProperties: true
+        type: object
+      type:
+        type: string
+    type: object
+  files.RmdirRequest:
+    properties:
+      path:
+        type: string
+      remote:
+        $ref: '#/definitions/files.RemoteConfiguration'
+    type: object
+  files.RmdirsRequest:
+    properties:
+      leaveRoot:
+        type: boolean
+      path:
+        type: string
+      remote:
+        $ref: '#/definitions/files.RemoteConfiguration'
+    type: object
+  files.SyncCopyDirRequest:
+    properties:
+      copyEmptyDirs:
+        type: boolean
+      destinationPath:
+        type: string
+      destinationRemote:
+        $ref: '#/definitions/files.RemoteConfiguration'
+      sourcePath:
+        type: string
+      sourceRemote:
+        $ref: '#/definitions/files.RemoteConfiguration'
+    type: object
+  files.SyncMoveDirRequest:
+    properties:
+      copyEmptyDirs:
+        type: boolean
+      deleteEmptySrcDirs:
+        type: boolean
+      destinationPath:
+        type: string
+      destinationRemote:
+        $ref: '#/definitions/files.RemoteConfiguration'
+      sourcePath:
+        type: string
+      sourceRemote:
+        $ref: '#/definitions/files.RemoteConfiguration'
+    type: object
+  files.SyncRequest:
+    properties:
+      copyEmptyDirs:
+        type: boolean
+      destinationPath:
+        type: string
+      destinationRemote:
+        $ref: '#/definitions/files.RemoteConfiguration'
+      sourcePath:
+        type: string
+      sourceRemote:
+        $ref: '#/definitions/files.RemoteConfiguration'
+    type: object
+  files.WriteFileResponse:
+    properties:
+      files:
+        items:
+          $ref: '#/definitions/files.WriteFileResponseItem'
+        type: array
+    type: object
+  files.WriteFileResponseItem:
+    properties:
+      mimeType:
+        type: string
+      modTime:
+        type: string
+      name:
+        type: string
+      size:
+        type: integer
+    type: object
+  fs.Metadata:
+    additionalProperties:
+      type: string
+    type: object
+  operations.ListJSONItem:
+    properties:
+      encrypted:
+        type: string
+      encryptedPath:
+        type: string
+      hashes:
+        additionalProperties:
+          type: string
+        type: object
+      id:
+        type: string
+      isBucket:
+        type: boolean
+      isDir:
+        type: boolean
+      metadata:
+        $ref: '#/definitions/fs.Metadata'
+      mimeType:
+        type: string
+      modTime:
+        allOf:
+        - $ref: '#/definitions/operations.Timestamp'
+        description: '`json:",omitempty"`'
+      name:
+        type: string
+      origID:
+        type: string
+      path:
+        type: string
+      size:
+        type: integer
+      tier:
+        type: string
+    type: object
+  operations.ListJSONOpt:
+    properties:
+      dirsOnly:
+        type: boolean
+      filesOnly:
+        type: boolean
+      hashTypes:
+        description: hash types to show if ShowHash is set, e.g. "MD5", "SHA-1"
+        items:
+          type: string
+        type: array
+      metadata:
+        type: boolean
+      noMimeType:
+        type: boolean
+      noModTime:
+        type: boolean
+      recurse:
+        type: boolean
+      showEncrypted:
+        type: boolean
+      showHash:
+        type: boolean
+      showOrigIDs:
+        type: boolean
+    type: object
+  operations.Timestamp:
+    properties:
+      format:
+        type: string
+      when:
+        type: string
+    type: object
+  whoisparser.Contact:
+    properties:
+      city:
+        type: string
+      country:
+        type: string
+      email:
+        type: string
+      fax:
+        type: string
+      fax_ext:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      organization:
+        type: string
+      phone:
+        type: string
+      phone_ext:
+        type: string
+      postal_code:
+        type: string
+      province:
+        type: string
+      referral_url:
+        type: string
+      street:
+        type: string
+    type: object
+  whoisparser.Domain:
+    properties:
+      created_date:
+        type: string
+      created_date_in_time:
+        type: string
+      dnssec:
+        type: boolean
+      domain:
+        type: string
+      expiration_date:
+        type: string
+      expiration_date_in_time:
+        type: string
+      extension:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      name_servers:
+        items:
+          type: string
+        type: array
+      punycode:
+        type: string
+      status:
+        items:
+          type: string
+        type: array
+      updated_date:
+        type: string
+      updated_date_in_time:
+        type: string
+      whois_server:
+        type: string
+    type: object
+  whoisparser.WhoisInfo:
+    properties:
+      administrative:
+        $ref: '#/definitions/whoisparser.Contact'
+      billing:
+        $ref: '#/definitions/whoisparser.Contact'
+      domain:
+        $ref: '#/definitions/whoisparser.Domain'
+      registrant:
+        $ref: '#/definitions/whoisparser.Contact'
+      registrar:
+        $ref: '#/definitions/whoisparser.Contact'
+      technical:
+        $ref: '#/definitions/whoisparser.Contact'
+    type: object
+host: localhost:4444
+info:
+  contact:
+    email: support@cloudyne.org
+    name: Cloudyne Support
+  description: Universal Rest API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://github.com/clysec/dagosy-worker
+  title: Unintegrate API
+  version: "1.0"
+paths:
+  /api/v1/dns/request/{type}/{domain}:
+    get:
+      consumes:
+      - application/json
+      description: DNS Request
+      parameters:
+      - description: Domain
+        in: path
+        name: domain
+        required: true
+        type: string
+      - description: Type
+        in: path
+        name: type
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: DNS Request
+          schema:
+            $ref: '#/definitions/dns.Response'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: DNS Request
+      tags:
+      - dns
+  /api/v1/dns/reverse/{ip}:
+    get:
+      consumes:
+      - application/json
+      description: Reverse DNS Request
+      parameters:
+      - description: IP
+        in: path
+        name: ip
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Reverse DNS Request
+          schema:
+            $ref: '#/definitions/dns.Response'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Reverse DNS Request
+      tags:
+      - dns
+  /api/v1/domain/nameservers/{domain}:
+    get:
+      consumes:
+      - application/json
+      description: Get nameservers for a domain
+      parameters:
+      - description: Domain
+        in: path
+        name: domain
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Nameservers
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Get Nameservers
+      tags:
+      - domain
+  /api/v1/domain/whois/{domain}:
+    get:
+      consumes:
+      - application/json
+      description: Get whois information for a domain
+      parameters:
+      - description: Domain
+        in: path
+        name: domain
+        required: true
+        type: string
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: WhoisResponse
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Whois Information
+      tags:
+      - domain
+  /api/v1/domain/whois/{domain}/json:
+    get:
+      consumes:
+      - application/json
+      description: Get whois information for a domain
+      parameters:
+      - description: Domain
+        in: path
+        name: domain
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/whoisparser.WhoisInfo'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Whois Information
+      tags:
+      - domain
+  /api/v1/files/checkEqual:
+    post:
+      consumes:
+      - application/json
+      description: Check if two files are equal
+      parameters:
+      - description: Check Equal Request
+        in: body
+        name: checkEqualRequest
+        required: true
+        schema:
+          $ref: '#/definitions/files.CheckEqualRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Checked successfully
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Check Equal
+      tags:
+      - files
+  /api/v1/files/copy:
+    post:
+      consumes:
+      - application/json
+      description: Copy File
+      parameters:
+      - description: Copy File Request
+        in: body
+        name: copyFileRequest
+        required: true
+        schema:
+          $ref: '#/definitions/files.CopyFileRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: File copied successfully
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Copy File
+      tags:
+      - files
+  /api/v1/files/copyUrl:
+    post:
+      consumes:
+      - application/json
+      description: Copy URL to filesystem
+      parameters:
+      - description: Copy URL Request
+        in: body
+        name: copyURLRequest
+        required: true
+        schema:
+          $ref: '#/definitions/files.CopyURLRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: File copied successfully
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Copy URL to filesystem
+      tags:
+      - files
+  /api/v1/files/delete:
+    post:
+      consumes:
+      - application/json
+      description: Delete File
+      parameters:
+      - description: Remote Configuration
+        in: body
+        name: remote
+        required: true
+        schema:
+          $ref: '#/definitions/files.DeleteFileRequest'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: File deleted successfully
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Delete File
+      tags:
+      - files
+  /api/v1/files/list:
+    post:
+      consumes:
+      - application/json
+      description: List Files
+      parameters:
+      - description: Remote Configuration
+        in: body
+        name: remote
+        required: true
+        schema:
+          $ref: '#/definitions/files.ListFilesRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/files.ListFilesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: List Files
+      tags:
+      - files
+  /api/v1/files/moveBackupDir:
+    post:
+      consumes:
+      - application/json
+      description: Move a file to a backup directory
+      parameters:
+      - description: Move Backup Dir Request
+        in: body
+        name: moveBackupDirRequest
+        required: true
+        schema:
+          $ref: '#/definitions/files.MoveBackupDirRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Backup directory moved successfully
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Move Backup Dir
+      tags:
+      - files
+  /api/v1/files/moveFile:
+    post:
+      consumes:
+      - application/json
+      description: Move File
+      parameters:
+      - description: Move File Request
+        in: body
+        name: moveFileRequest
+        required: true
+        schema:
+          $ref: '#/definitions/files.MoveFileRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: File moved successfully
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Move File
+      tags:
+      - files
+  /api/v1/files/read:
+    post:
+      consumes:
+      - application/json
+      description: Read File
+      parameters:
+      - description: Remote Configuration
+        in: body
+        name: remote
+        required: true
+        schema:
+          $ref: '#/definitions/files.ReadFileRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/files.ReadFileResponse'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Read File
+      tags:
+      - files
+  /api/v1/files/removeDir:
+    post:
+      consumes:
+      - application/json
+      description: Removes an empty directory
+      parameters:
+      - description: Remove Directory Request
+        in: body
+        name: rmdirsRequest
+        required: true
+        schema:
+          $ref: '#/definitions/files.RmdirRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Removed successfully
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Remove Empty Directory
+      tags:
+      - files
+  /api/v1/files/removeDirs:
+    post:
+      consumes:
+      - application/json
+      description: Recursively remove directories
+      parameters:
+      - description: Remove Directories Request
+        in: body
+        name: rmdirsRequest
+        required: true
+        schema:
+          $ref: '#/definitions/files.RmdirsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Removed successfully
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Remove Directories
+      tags:
+      - files
+  /api/v1/files/sync:
+    post:
+      consumes:
+      - application/json
+      description: Sync
+      parameters:
+      - description: Sync Request
+        in: body
+        name: syncRequest
+        required: true
+        schema:
+          $ref: '#/definitions/files.SyncRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Synced successfully
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Sync
+      tags:
+      - files
+  /api/v1/files/syncCopyDir:
+    post:
+      consumes:
+      - application/json
+      description: Sync CopyDir
+      parameters:
+      - description: Sync CopyDir Request
+        in: body
+        name: syncCopyDirRequest
+        required: true
+        schema:
+          $ref: '#/definitions/files.SyncCopyDirRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Synced successfully
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Sync CopyDir
+      tags:
+      - files
+  /api/v1/files/syncMoveDir:
+    post:
+      consumes:
+      - application/json
+      description: Sync MoveDir
+      parameters:
+      - description: Sync MoveDir Request
+        in: body
+        name: syncMoveDirRequest
+        required: true
+        schema:
+          $ref: '#/definitions/files.SyncMoveDirRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Synced successfully
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Sync MoveDir
+      tags:
+      - files
+  /api/v1/files/write:
+    put:
+      consumes:
+      - multipart/form-data
+      description: Write File. You can attach an arbitrary number of files to the
+        request. All have to be placed in the "file" field.
+      parameters:
+      - description: File
+        in: formData
+        name: file
+        required: true
+        type: file
+      - description: Remote Configuration
+        in: formData
+        name: remote
+        required: true
+        type: string
+      - description: Path
+        in: formData
+        name: path
+        required: true
+        type: string
+      - description: Overwrite
+        in: formData
+        name: overwrite
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/files.WriteFileResponse'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Write File
+      tags:
+      - files
+swagger: "2.0"

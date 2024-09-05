@@ -1,0 +1,4 @@
+*.http
+__debug*
+_debug*
+vendor/
