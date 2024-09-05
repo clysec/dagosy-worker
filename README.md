@@ -12,7 +12,20 @@ swag init -g main.go --output docs --parseDependency --md .
 ## Getting Started
 To get started, run the following command:
 ```
-go run main.go
+go run main.go help
+```
+
+### Parameters
+All parameters can be set by any of the following methods:
+- Files
+  - json
+  - yaml
+  - toml
+  - ini
+- Environment variables
+- Flags
+```
+
 ```
 
 ## Included Endpoints

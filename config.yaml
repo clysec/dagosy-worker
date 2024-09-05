@@ -1,0 +1,5 @@
+listenAddress: ""
+listenPort: "4444"
+logLevel: "info"
+plugins:
+  - "dagosy-demo-plugin"
