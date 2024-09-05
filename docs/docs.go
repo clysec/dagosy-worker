@@ -250,6 +250,92 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/echo": {
+            "get": {
+                "description": "Echo the request",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "echo"
+                ],
+                "summary": "Echo the request",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/echo.EchoResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Echo the request",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "echo"
+                ],
+                "summary": "Echo the request",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/echo.EchoResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Echo the request",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "echo"
+                ],
+                "summary": "Echo the request",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/echo.EchoResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Echo the request",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "echo"
+                ],
+                "summary": "Echo the request",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/echo.EchoResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/files/checkEqual": {
             "post": {
                 "description": "Check if two files are equal",
@@ -436,7 +522,7 @@ const docTemplate = `{
         },
         "/api/v1/files/list": {
             "post": {
-                "description": "List Files",
+                "description": "List files in a given directory with a filter",
                 "consumes": [
                     "application/json"
                 ],
@@ -446,7 +532,7 @@ const docTemplate = `{
                 "tags": [
                     "files"
                 ],
-                "summary": "List Files",
+                "summary": "Filtered List Files",
                 "parameters": [
                     {
                         "description": "Remote Configuration",
@@ -454,7 +540,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/files.ListFilesRequest"
+                            "$ref": "#/definitions/files.FilteredListFilesRequest"
                         }
                     }
                 ],
@@ -1017,6 +1103,35 @@ const docTemplate = `{
                 }
             }
         },
+        "echo.EchoResponse": {
+            "type": "object",
+            "properties": {
+                "formData": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "headers": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "queryParams": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "requestBody": {
+                    "type": "string"
+                },
+                "requestType": {
+                    "type": "string"
+                }
+            }
+        },
         "files.CheckEqualRequest": {
             "type": "object",
             "properties": {
@@ -1085,6 +1200,44 @@ const docTemplate = `{
                 }
             }
         },
+        "files.FilterType": {
+            "type": "string",
+            "enum": [
+                "prefix",
+                "suffix",
+                "regex",
+                "wildcard"
+            ],
+            "x-enum-varnames": [
+                "FilterTypePrefix",
+                "FilterTypeSuffix",
+                "FilterTypeRegex",
+                "FilterTypeWildcard"
+            ]
+        },
+        "files.FilteredListFilesRequest": {
+            "type": "object",
+            "properties": {
+                "filter": {
+                    "type": "string"
+                },
+                "filterType": {
+                    "$ref": "#/definitions/files.FilterType"
+                },
+                "options": {
+                    "$ref": "#/definitions/operations.ListJSONOpt"
+                },
+                "path": {
+                    "type": "string"
+                },
+                "recurse": {
+                    "type": "boolean"
+                },
+                "remote": {
+                    "$ref": "#/definitions/files.RemoteConfiguration"
+                }
+            }
+        },
         "files.ListFilesRequest": {
             "type": "object",
             "properties": {
@@ -1110,6 +1263,9 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/operations.ListJSONItem"
                     }
+                },
+                "total": {
+                    "type": "integer"
                 }
             }
         },

@@ -63,7 +63,7 @@ func ListFiles(w http.ResponseWriter, r *http.Request) {
 // @Accept json
 // @Produce json
 // @Param remote body FilteredListFilesRequest true "Remote Configuration"
-// @Success 200 {object} FilteredListFilesResponse
+// @Success 200 {object} ListFilesResponse
 // @Failure 400 {string} string "Bad Request"
 // @Failure 500 {string} string "Internal Server Error"
 // @Router /api/v1/files/list [post]

@@ -71,6 +71,25 @@ definitions:
       provider:
         type: string
     type: object
+  echo.EchoResponse:
+    properties:
+      formData:
+        additionalProperties:
+          type: string
+        type: object
+      headers:
+        additionalProperties:
+          type: string
+        type: object
+      queryParams:
+        additionalProperties:
+          type: string
+        type: object
+      requestBody:
+        type: string
+      requestType:
+        type: string
+    type: object
   files.CheckEqualRequest:
     properties:
       destinationPath:
@@ -115,6 +134,33 @@ definitions:
       remote:
         $ref: '#/definitions/files.RemoteConfiguration'
     type: object
+  files.FilterType:
+    enum:
+    - prefix
+    - suffix
+    - regex
+    - wildcard
+    type: string
+    x-enum-varnames:
+    - FilterTypePrefix
+    - FilterTypeSuffix
+    - FilterTypeRegex
+    - FilterTypeWildcard
+  files.FilteredListFilesRequest:
+    properties:
+      filter:
+        type: string
+      filterType:
+        $ref: '#/definitions/files.FilterType'
+      options:
+        $ref: '#/definitions/operations.ListJSONOpt'
+      path:
+        type: string
+      recurse:
+        type: boolean
+      remote:
+        $ref: '#/definitions/files.RemoteConfiguration'
+    type: object
   files.ListFilesRequest:
     properties:
       options:
@@ -132,6 +178,8 @@ definitions:
         items:
           $ref: '#/definitions/operations.ListJSONItem'
         type: array
+      total:
+        type: integer
     type: object
   files.MoveBackupDirRequest:
     properties:
@@ -581,6 +629,63 @@ paths:
       summary: Whois Information
       tags:
       - domain
+  /api/v1/echo:
+    delete:
+      consumes:
+      - application/json
+      description: Echo the request
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/echo.EchoResponse'
+      summary: Echo the request
+      tags:
+      - echo
+    get:
+      consumes:
+      - application/json
+      description: Echo the request
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/echo.EchoResponse'
+      summary: Echo the request
+      tags:
+      - echo
+    post:
+      consumes:
+      - application/json
+      description: Echo the request
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/echo.EchoResponse'
+      summary: Echo the request
+      tags:
+      - echo
+    put:
+      consumes:
+      - application/json
+      description: Echo the request
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/echo.EchoResponse'
+      summary: Echo the request
+      tags:
+      - echo
   /api/v1/files/checkEqual:
     post:
       consumes:
@@ -705,14 +810,14 @@ paths:
     post:
       consumes:
       - application/json
-      description: List Files
+      description: List files in a given directory with a filter
       parameters:
       - description: Remote Configuration
         in: body
         name: remote
         required: true
         schema:
-          $ref: '#/definitions/files.ListFilesRequest'
+          $ref: '#/definitions/files.FilteredListFilesRequest'
       produces:
       - application/json
       responses:
@@ -728,7 +833,7 @@ paths:
           description: Internal Server Error
           schema:
             type: string
-      summary: List Files
+      summary: Filtered List Files
       tags:
       - files
   /api/v1/files/moveBackupDir:
