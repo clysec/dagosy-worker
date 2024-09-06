@@ -4,3 +4,5 @@ _debug*
 vendor/
 plugins/*
 !plugins/plugins.go
+dist/
+./*.swp
