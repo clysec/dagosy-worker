@@ -2,6 +2,7 @@ package common
 
 import (
 	"encoding/json"
+	"io"
 	"net/http"
 )
 
@@ -21,4 +22,10 @@ func TextResponse(w http.ResponseWriter, statusCode int, body string) {
 	w.Header().Set("Content-Type", "text/plain")
 	w.WriteHeader(statusCode)
 	w.Write([]byte(body))
+}
+
+func StreamResponse(w http.ResponseWriter, statusCode int, contentType string, body io.Reader) {
+	w.Header().Set("Content-Type", contentType)
+	w.WriteHeader(statusCode)
+	io.Copy(w, body)
 }
