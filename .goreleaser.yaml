@@ -62,8 +62,7 @@ gitea_urls:
   skip_tls_verify: false
 
 dockers:
-  
-  image_templates:
+  - image_templates:
     - clysec/dagosy-worker:{{ .Tag }}
     - clysec/dagosy-worker:latest
     - ghcr.io/clysec/dagosy-worker:{{ .Tag }}
