@@ -817,6 +817,55 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/files/rename": {
+            "post": {
+                "description": "Bulk Rename Files",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "files"
+                ],
+                "summary": "Bulk Rename Files",
+                "parameters": [
+                    {
+                        "description": "Remote Configuration",
+                        "name": "remote",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/files.BulkRenameFilesRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/files/sync": {
             "post": {
                 "description": "Sync",
@@ -1134,6 +1183,56 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/ldap/query": {
+            "post": {
+                "description": "Run LDAP Query",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ldap"
+                ],
+                "summary": "Run LDAP Query",
+                "parameters": [
+                    {
+                        "description": "Query",
+                        "name": "query",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/ldap.LdapQuery"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "additionalProperties": true
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -1290,6 +1389,23 @@ const docTemplate = `{
                 },
                 "requestURL": {
                     "type": "string"
+                }
+            }
+        },
+        "files.BulkRenameFilesRequest": {
+            "type": "object",
+            "properties": {
+                "nameMap": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "path": {
+                    "type": "string"
+                },
+                "remote": {
+                    "$ref": "#/definitions/files.RemoteConfiguration"
                 }
             }
         },
@@ -1635,6 +1751,46 @@ const docTemplate = `{
             "type": "object",
             "additionalProperties": {
                 "type": "string"
+            }
+        },
+        "ldap.LdapConnection": {
+            "type": "object",
+            "properties": {
+                "baseDN": {
+                    "type": "string"
+                },
+                "domain": {
+                    "type": "string"
+                },
+                "insecureSkipVerify": {
+                    "type": "boolean"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "ldap.LdapQuery": {
+            "type": "object",
+            "properties": {
+                "attributes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "connection": {
+                    "$ref": "#/definitions/ldap.LdapConnection"
+                },
+                "query": {
+                    "type": "string"
+                }
             }
         },
         "operations.ListJSONItem": {

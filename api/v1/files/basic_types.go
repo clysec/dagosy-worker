@@ -65,3 +65,13 @@ type WriteFileResponseItem struct {
 	MimeType string    `json:"mimeType"`
 	ModTime  time.Time `json:"modTime"`
 }
+
+type BulkRenameFilesRequest struct {
+	RemotePathRequest
+	NameMap map[string]string `json:"nameMap"`
+}
+
+type BulkRenameFilesResponse struct {
+	RenamedFiles map[string]string `json:"renamedFiles"`
+	Errors       map[string]string `json:"errors"`
+}

@@ -300,3 +300,45 @@ func DeleteFile(w http.ResponseWriter, r *http.Request) {
 
 	common.ByteResponse(w, http.StatusOK, "text/plain", []byte("File deleted successfully"))
 }
+
+// Bulk Rename Files
+// @Summary Bulk Rename Files
+// @Description Bulk Rename Files
+// @Tags files
+// @Accept json
+// @Produce json
+// @Param remote body BulkRenameFilesRequest true "Remote Configuration"
+// @Success 200 {object} map[string]string
+// @Failure 400 {string} string "Bad Request"
+// @Failure 500 {string} string "Internal Server Error"
+// @Router /api/v1/files/rename [post]
+func BulkRenameFiles(w http.ResponseWriter, r *http.Request) {
+	var request BulkRenameFilesRequest
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	tfs, err := request.Remote.GetFilesystem(r, w)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	resp := BulkRenameFilesResponse{
+		RenamedFiles: map[string]string{},
+		Errors:       map[string]string{},
+	}
+
+	for from, to := range request.NameMap {
+		err := operations.MoveFile(r.Context(), tfs, tfs, from, to)
+		if err != nil {
+			resp.Errors[from] = err.Error()
+			continue
+		}
+
+		resp.RenamedFiles[from] = to
+	}
+
+	common.JsonResponse(w, http.StatusOK, resp)
+}
