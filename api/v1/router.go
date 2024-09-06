@@ -5,6 +5,7 @@ import (
 	"github.com/clysec/dagosy-worker/api/v1/domain"
 	"github.com/clysec/dagosy-worker/api/v1/echo"
 	"github.com/clysec/dagosy-worker/api/v1/files"
+	"github.com/clysec/dagosy-worker/api/v1/rest"
 	"github.com/gorilla/mux"
 )
 
@@ -13,4 +14,5 @@ func RegisterRoutes(router *mux.Router) {
 	domain.RegisterRoutes(router.PathPrefix("/domain").Subrouter())
 	dns.RegisterRoutes(router.PathPrefix("/dns").Subrouter())
 	echo.RegisterRoutes(router.PathPrefix("/echo").Subrouter())
+	rest.RegisterRoutes(router.PathPrefix("/rest").Subrouter())
 }

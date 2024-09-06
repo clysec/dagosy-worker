@@ -3,12 +3,13 @@ module github.com/clysec/dagosy-worker
 go 1.22.3
 
 require (
-	github.com/clysec/greq v0.1.0
+	github.com/clysec/greq v0.1.1-0.20240820131909-2a67242d7288
 	github.com/gorilla/mux v1.8.1
 	github.com/likexian/doh v0.7.1
 	github.com/likexian/whois v1.15.5
 	github.com/likexian/whois-parser v1.24.20
 	github.com/rclone/rclone v1.67.0
+	github.com/scheiblingco/gofn v1.2.3
 	github.com/swaggo/http-swagger v1.3.4
 	github.com/swaggo/swag v1.16.3
 )
@@ -150,7 +151,6 @@ require (
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/ryszard/goskiplist v0.0.0-20150312221310-2dfbae5fcf46 // indirect
-	github.com/scheiblingco/gofn v1.2.3 // indirect
 	github.com/shabbyrobe/gocovmerge v0.0.0-20230507112040-c3350d9342df // indirect
 	github.com/shirou/gopsutil/v3 v3.24.4 // indirect
 	github.com/shoenig/go-m1cpu v0.1.6 // indirect
@@ -184,14 +184,14 @@ require (
 	go.opentelemetry.io/otel/metric v1.24.0 // indirect
 	go.opentelemetry.io/otel/trace v1.24.0 // indirect
 	goftp.io/server/v2 v2.0.1 // indirect
-	golang.org/x/crypto v0.26.0 // indirect
+	golang.org/x/crypto v0.27.0 // indirect
 	golang.org/x/exp v0.0.0-20240506185415-9bf2ced13842 // indirect
 	golang.org/x/mod v0.20.0 // indirect
 	golang.org/x/net v0.28.0 // indirect
 	golang.org/x/oauth2 v0.20.0 // indirect
 	golang.org/x/sync v0.8.0 // indirect
-	golang.org/x/sys v0.23.0 // indirect
-	golang.org/x/term v0.23.0 // indirect
+	golang.org/x/sys v0.25.0 // indirect
+	golang.org/x/term v0.24.0 // indirect
 	golang.org/x/text v0.18.0 // indirect
 	golang.org/x/time v0.5.0 // indirect
 	golang.org/x/tools v0.24.0 // indirect
@@ -203,7 +203,7 @@ require (
 	gopkg.in/validator.v2 v2.0.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	software.sslmate.com/src/go-pkcs12 v0.4.0 // indirect
+	software.sslmate.com/src/go-pkcs12 v0.5.0 // indirect
 	storj.io/common v0.0.0-20240424123607-5f226fc92c16 // indirect
 	storj.io/drpc v0.0.33 // indirect
 	storj.io/eventkit v0.0.0-20240306141230-6cb545e5f892 // indirect

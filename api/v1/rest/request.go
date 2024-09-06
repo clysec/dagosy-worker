@@ -13,10 +13,13 @@ import (
 // @Description Make a GET Request
 // @Accept json
 // @Produce json
-// @Success 200 {object} models.Response
-// @Failure 400 {object} models.Response
-// @Failure 500 {object} models.Response
-// @Router /request/get [get]
+// @Success 200 {object} map[string]interface{}
+// @Router /api/v1/rest/request [get]
+// @Router /api/v1/rest/request [post]
+// @Router /api/v1/rest/request [put]
+// @Router /api/v1/rest/request [delete]
+// @Router /api/v1/rest/request [patch]
+// @Router /api/v1/rest/request [options]
 func MakeRequest(w http.ResponseWriter, r *http.Request) {
 	reqData := BaseRequest{}
 	err := json.NewDecoder(r.Body).Decode(&reqData)
@@ -53,11 +56,20 @@ func MakeRequest(w http.ResponseWriter, r *http.Request) {
 		req = req.WithMultipartFormBody(mpBody)
 	}
 
+	if reqData.UseCertAuth {
+		certAuth := greq.NewClientCertificateAuth().FromX509Bytes([]byte(reqData.Certificate), []byte(reqData.PrivateKey))
+		if !reqData.ValidateCa {
+			certAuth = certAuth.WithInsecureSkipVerify(true)
+		}
+
+		req = req.WithAuth(certAuth)
+	}
+
 	resp, err := req.Execute()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	common.StreamResponse(w, resp.StatusCode, resp.Headers["Content-Type"][0], resp.Response.Body)
+	common.StreamResponse(w, resp.StatusCode, resp.Headers, resp.Response.Body)
 }

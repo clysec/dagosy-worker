@@ -75,19 +75,35 @@ definitions:
     properties:
       formData:
         additionalProperties:
-          type: string
+          items:
+            type: string
+          type: array
+        type: object
+      formFiles:
+        additionalProperties:
+          items:
+            type: string
+          type: array
         type: object
       headers:
         additionalProperties:
-          type: string
+          items:
+            type: string
+          type: array
         type: object
       queryParams:
         additionalProperties:
-          type: string
+          items:
+            type: string
+          type: array
         type: object
       requestBody:
         type: string
+      requestSource:
+        type: string
       requestType:
+        type: string
+      requestURL:
         type: string
     type: object
   files.CheckEqualRequest:
@@ -658,6 +674,20 @@ paths:
       summary: Echo the request
       tags:
       - echo
+    patch:
+      consumes:
+      - application/json
+      description: Echo the request
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/echo.EchoResponse'
+      summary: Echo the request
+      tags:
+      - echo
     post:
       consumes:
       - application/json
@@ -1120,4 +1150,83 @@ paths:
       summary: Write File
       tags:
       - files
+  /api/v1/rest/request:
+    delete:
+      consumes:
+      - application/json
+      description: Make a GET Request
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Make a GET Request
+    get:
+      consumes:
+      - application/json
+      description: Make a GET Request
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Make a GET Request
+    options:
+      consumes:
+      - application/json
+      description: Make a GET Request
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Make a GET Request
+    patch:
+      consumes:
+      - application/json
+      description: Make a GET Request
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Make a GET Request
+    post:
+      consumes:
+      - application/json
+      description: Make a GET Request
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Make a GET Request
+    put:
+      consumes:
+      - application/json
+      description: Make a GET Request
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Make a GET Request
 swagger: "2.0"
