@@ -32,7 +32,9 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Generate Swagger Docs
-      run: swag init -g main.go --output docs --parseDependency --md .
+      run: |
+        go install github.com/swaggo/swag/cmd/swag@latest
+        swag init -g main.go --output docs --parseDependency --md .
 
     - name: Goreleaser
       uses: goreleaser/goreleaser-action@v2
