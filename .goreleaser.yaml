@@ -1,4 +1,4 @@
-version: 1
+version: 2
 
 builds:
   - env:
@@ -62,8 +62,11 @@ gitea_urls:
   skip_tls_verify: false
 
 dockers:
+  
   image_templates:
     - clysec/dagosy-worker:{{ .Tag }}
     - clysec/dagosy-worker:latest
     - ghcr.io/clysec/dagosy-worker:{{ .Tag }}
     - ghcr.io/clysec/dagosy-worker:latest
+  
+
