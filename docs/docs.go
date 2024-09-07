@@ -1070,6 +1070,11 @@ const docTemplate = `{
         },
         "/api/v1/rest/request": {
             "get": {
+                "security": [
+                    {
+                        "OauthSE": []
+                    }
+                ],
                 "description": "Make a GET Request",
                 "consumes": [
                     "application/json"
@@ -1089,6 +1094,11 @@ const docTemplate = `{
                 }
             },
             "put": {
+                "security": [
+                    {
+                        "OauthSE": []
+                    }
+                ],
                 "description": "Make a GET Request",
                 "consumes": [
                     "application/json"
@@ -1108,6 +1118,11 @@ const docTemplate = `{
                 }
             },
             "post": {
+                "security": [
+                    {
+                        "OauthSE": []
+                    }
+                ],
                 "description": "Make a GET Request",
                 "consumes": [
                     "application/json"
@@ -1127,6 +1142,11 @@ const docTemplate = `{
                 }
             },
             "delete": {
+                "security": [
+                    {
+                        "OauthSE": []
+                    }
+                ],
                 "description": "Make a GET Request",
                 "consumes": [
                     "application/json"
@@ -1146,6 +1166,11 @@ const docTemplate = `{
                 }
             },
             "options": {
+                "security": [
+                    {
+                        "OauthSE": []
+                    }
+                ],
                 "description": "Make a GET Request",
                 "consumes": [
                     "application/json"
@@ -1165,6 +1190,11 @@ const docTemplate = `{
                 }
             },
             "patch": {
+                "security": [
+                    {
+                        "OauthSE": []
+                    }
+                ],
                 "description": "Make a GET Request",
                 "consumes": [
                     "application/json"
@@ -2022,6 +2052,19 @@ const docTemplate = `{
                 "technical": {
                     "$ref": "#/definitions/whoisparser.Contact"
                 }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "OauthSE": {
+            "type": "oauth2",
+            "flow": "accessCode",
+            "authorizationUrl": "https://oauth.se/realms/master/protocol/openid-connect/auth",
+            "tokenUrl": "https://oauth.se/realms/master/protocol/openid-connect/token",
+            "scopes": {
+                "email": "Email Scope",
+                "openid": "Default Scope",
+                "profile": "Profile Scope"
             }
         }
     }

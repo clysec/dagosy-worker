@@ -26,18 +26,16 @@ import (
 // @host localhost:4444
 // @BasePath /
 
-// @nsecurityDefinitions.oauth2.accessCode oauthaccess
+// @nsecurityDefinitions.oauth2.accessCode OauthDemo
 // @nin Header
-// @nname oauthaccess
+// @nname OauthDemo
 // @nauthorizationUrl https://oauth.demo/realms/master/protocol/openid-connect/auth
 // @ntokenUrl https://oauth.demo/realms/master/protocol/openid-connect/token
 // @nrefreshUrl https://oauth.demo/realms/master/protocol/openid-connect/token
 // @nscope.openid Default Scope
 // @nscope.profile Profile Scope
 // @nscope.email Email Scope
-// @nscope.groups Groups
-// @nscope.the-api API Access
-// @nSecurity oauthaccess
+// @nSecurity OauthDemo
 func main() {
 	config := &Config{}
 
@@ -47,6 +45,7 @@ func main() {
 	}
 
 	baseRouter := mux.NewRouter()
+
 	baseRouter.PathPrefix("/swagger").Handler(httpSwagger.Handler(
 		httpSwagger.URL("/swagger/doc.json"),
 		httpSwagger.DeepLinking(true),
@@ -55,6 +54,11 @@ func main() {
 	)).Methods(http.MethodGet)
 
 	v1SubRouter := baseRouter.PathPrefix("/api/v1").Subrouter()
+	if len(config.Auth) > 0 {
+		for _, auth := range config.Auth {
+			v1SubRouter.Use(auth.GetHandler)
+		}
+	}
 	v1.RegisterRoutes(v1SubRouter)
 
 	// fmt.Println("Loading plugins for API version v1")
@@ -122,8 +126,9 @@ func main() {
 }
 
 type Config struct {
-	ListenAddress string   `yaml:"listenAddress" env:"LISTEN_ADDRESS"`
-	ListenPort    string   `yaml:"listenPort" env:"LISTEN_PORT"`
-	LogLevel      string   `yaml:"logLevel" env:"LOG_LEVEL"`
-	Plugins       []string `yaml:"plugins" env:"PLUGINS"`
+	ListenAddress string       `yaml:"listenAddress" env:"LISTEN_ADDRESS"`
+	ListenPort    string       `yaml:"listenPort" env:"LISTEN_PORT"`
+	LogLevel      string       `yaml:"logLevel" env:"LOG_LEVEL"`
+	Plugins       []string     `yaml:"plugins" env:"PLUGINS"`
+	Auth          []AuthConfig `yaml:"auth" env:"AUTH"`
 }

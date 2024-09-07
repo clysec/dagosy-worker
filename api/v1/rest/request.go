@@ -14,6 +14,7 @@ import (
 // @Accept json
 // @Produce json
 // @Success 200 {object} map[string]interface{}
+// @nSecurity OauthSE
 // @Router /api/v1/rest/request [get]
 // @Router /api/v1/rest/request [post]
 // @Router /api/v1/rest/request [put]

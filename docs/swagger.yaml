@@ -1232,6 +1232,8 @@ paths:
           schema:
             additionalProperties: true
             type: object
+      security:
+      - OauthSE: []
       summary: Make a GET Request
     get:
       consumes:
@@ -1245,6 +1247,8 @@ paths:
           schema:
             additionalProperties: true
             type: object
+      security:
+      - OauthSE: []
       summary: Make a GET Request
     options:
       consumes:
@@ -1258,6 +1262,8 @@ paths:
           schema:
             additionalProperties: true
             type: object
+      security:
+      - OauthSE: []
       summary: Make a GET Request
     patch:
       consumes:
@@ -1271,6 +1277,8 @@ paths:
           schema:
             additionalProperties: true
             type: object
+      security:
+      - OauthSE: []
       summary: Make a GET Request
     post:
       consumes:
@@ -1284,6 +1292,8 @@ paths:
           schema:
             additionalProperties: true
             type: object
+      security:
+      - OauthSE: []
       summary: Make a GET Request
     put:
       consumes:
@@ -1297,6 +1307,8 @@ paths:
           schema:
             additionalProperties: true
             type: object
+      security:
+      - OauthSE: []
       summary: Make a GET Request
   /ldap/query:
     post:
@@ -1331,4 +1343,14 @@ paths:
       summary: Run LDAP Query
       tags:
       - ldap
+securityDefinitions:
+  OauthSE:
+    authorizationUrl: https://oauth.se/realms/master/protocol/openid-connect/auth
+    flow: accessCode
+    scopes:
+      email: Email Scope
+      openid: Default Scope
+      profile: Profile Scope
+    tokenUrl: https://oauth.se/realms/master/protocol/openid-connect/token
+    type: oauth2
 swagger: "2.0"
